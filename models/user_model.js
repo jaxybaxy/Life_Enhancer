@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema({
         unique:true
     },password: {
         type: String,
-        required: true
+        // required: true
 
     },name: {
         type:String,
