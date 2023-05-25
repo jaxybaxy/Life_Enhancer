@@ -86,6 +86,7 @@ exports.signInWithGoogle = async (req, res) => {
       return res.status(200).json({
         status: true,
         token:token,
+        isNew:false,
         user: { name: userExists.name, email: userExists.email },
       });
     }
@@ -102,6 +103,7 @@ exports.signInWithGoogle = async (req, res) => {
     res.status(200).json({
       status: true,
       token:token,
+      isNew:true,
       user: { name: newUser.name, email: newUser.email },
     });
   } catch (err) {
