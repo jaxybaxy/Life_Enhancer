@@ -66,7 +66,7 @@ exports.signInWithGoogle = async (req, res) => {
   // const { idToken } = req.body;
   try {
     // const decodedToken = await admin.auth().verifyIdToken(idToken);
-    const { email, emailVerified, displayName, photoURL } = req.body.User;
+    const { email, emailVerified, displayName, photoURL } = req.body;
     // const name = displayName;
     // Check if email is verified
     if (!emailVerified) {
