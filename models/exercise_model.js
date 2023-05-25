@@ -15,7 +15,7 @@ const exerciseSchema = new mongoose.Schema({
     required: true
   },
   Level: {
-    type: String,
+    type: Number,
     required: true
   }
 });
