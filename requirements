@@ -1,0 +1,37 @@
+---> mysql---mongo   v/
+---> update user api => update photo url, weight, height and BMI
+---> get diet (meals {carbs- fat -protiine }) (3 levels) 1 - 2 - 3
+---> get exercice list (3level)*
+---> get doctor list   v/
+---> get doctor profile   v/
+---> post and edit rate 
+---> user -- email& password
+`doctor data -- picture & name & address & phone & rate
+----------------------------------------------rate -- user & doctor & rate ----------------------------------------
+
+ 70/200
+
+
+-screens 
+-choose level
+
+-input inbody data*
+ min 1300
+ level 1 
+ level 2 1750
+ level 3 1200
+
+
+
+
+[
+{"Day":"Suterday","Breakfast":"2 EGGS + 50g Fol + 25g Cheese with olive oil.  + 20g  JAM","Dinner":"450g Koshary.","Lunch":"Wheat Grain (bleleah)","Drinks":"beetroot juice.","Fruit":"any."},
+{"Day":"Sunday","Breakfast":"1 EGG + 100g Fol + 50g Youghurt + 20g Black Honey.+ 90g bread","Dinner":"250g Fried fish + 150g rice +green salad.","Lunch":"Oat Grain.","Drinks":"Green Juice.","Fruit":"any."},
+{"Day":"Monday","Breakfast":"1 EGG + 100g Fol + 50g Cheese + 20g Honey.","Dinner":"250G Chicken + 150g rice or amacroni + green salad.","Lunch":"Sweet corn.","Drinks":"Avocado Juice.","Fruit":"any."},
+{"Day":"Tuesday","Breakfast":"70g Tuna + 70g potato + 90g bread.","Dinner":"100g meat + 150g rice +green salad.","Lunch":"Yoghurt.","Drinks":"Milk 1 cup","Fruit":"any."},
+{"Day":"Wednesday","Breakfast":"2 EGGS + 50g Fol + 25g Cheese with olive oil.  + 20g  JAM","Dinner":"450g Koshary.","Lunch":"Yoghurt.","Drinks":"beetroot juice.","Fruit":"any."},
+{"Day":"Thursday","Breakfast":"1 EGG + 100g Fol + 50g Youghurt + 20g Black Honey.+ 90g bread","Dinner":"200g any white meat + 150g Rice or macaroni+ green salad.","Lunch":"Grilled corn","Drinks":"Avocado Juice.","Fruit":"any."},
+{"Day":"Friday","Breakfast":"70g Tuna + 70g potato + 90g bread.","Dinner":"100g any red meat + 150g Rice or macaroni+ green salad.","Lunch":"Sweet potato.","Drinks":"Milk 1 cup","Fruit":"any."}
+]
+
+CIQdUBQPCBJvODyY
