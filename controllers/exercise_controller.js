@@ -27,7 +27,6 @@ exports.getExerciseById = async(req,res) => {
     try{
         var level = req.body.level
         const exercises = await ExerciseModel.find({ Level:level });
-        console.log(exercises)
         res.status(200).send({status:true,exercise:exercises})}
 
     catch(err){

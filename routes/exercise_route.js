@@ -5,6 +5,6 @@ const exerciseController=require('../controllers/exercise_controller')
 
 router.get("/allexercises",exerciseController.getAllExercises)
 router.get("/exerciseid",exerciseController.getExerciseById)
-router.get("/exerciselevel",exerciseController.getExerciseByLevel)
+router.post("/exerciselevel",exerciseController.getExerciseByLevel)
 
 module.exports = router;
