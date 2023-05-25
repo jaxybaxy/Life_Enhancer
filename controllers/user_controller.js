@@ -69,7 +69,7 @@ exports.signInWithGoogle = async (req, res) => {
     const { email, emailVerified, displayName, photoURL } = req.body;
     // const name = displayName;
     // Check if email is verified
-    if (!emailVerified) {
+    if (emailVerified=="false") {
       return res.json({
         status: false,
         message: "Email is not verified",
