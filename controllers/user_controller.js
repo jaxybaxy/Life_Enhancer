@@ -62,6 +62,54 @@ const validator = require("validator");
 // };
 
 
+exports.signInWithGoogle = async (req, res) => {
+  // const { idToken } = req.body;
+  try {
+    // const decodedToken = await admin.auth().verifyIdToken(idToken);
+    const { email, emailVerified, displayName, photoURL } = req.body.User;
+    // const name = displayName;
+    // Check if email is verified
+    if (!emailVerified) {
+      return res.json({
+        status: false,
+        message: "Email is not verified",
+  
+      });
+    }
+
+    // Check if user already exists in your database
+    const userExists = await UserModel.findOne({ email });
+    if (userExists) {
+      const tokenData = {id:userExists.id,email:userExists.email}
+      const token = await jwt.sign(tokenData,secretKey,{expiresIn:jwt_expire});
+      //const token = await admin.auth().createCustomToken(userExists._id.toString());
+      return res.status(200).json({
+        status: true,
+        token:token,
+        user: { name: userExists.name, email: userExists.email },
+      });
+    }
+
+    // Create a new user in your database
+    // const PhotoURL = picture
+    const newUser = new UserModel({ email:email, name:displayName, PhotoURL:photoURL });
+    await newUser.save();
+    const resultUser = await UserModel.findOne({ email });
+    const tokenData = { id: resultUser.id, email: resultUser.email };
+    const token = await jwt.sign(tokenData, secretKey, { expiresIn: jwt_expire });
+    //const token = await admin.auth().createCustomToken(newUser._id.toString());
+
+    res.status(200).json({
+      status: true,
+      token:token,
+      user: { name: newUser.name, email: newUser.email },
+    });
+  } catch (err) {
+    console.error(err);
+    return res.json({ message: "Internal server error" });
+  }
+};
+
 exports.signUp = async (req, res) => {
   const { email, userpassword, name } = req.body;
 
