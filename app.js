@@ -5,6 +5,8 @@ const userRoutes = require("./routes/user_route")
 const doctorRoutes = require("./routes/doctor_route")
 const exerciseRoutes = require("./routes/exercise_route")
 const foodRoutes = require("./routes/food_route")
+const todoRoutes = require("./routes/todo_route")
+
 
 const bodyParser = require('body-parser');
 // const cors = require('cors');
@@ -20,5 +22,6 @@ app.use("/doctor",doctorRoutes)
 app.use("/user",userRoutes)
 app.use("/exercise",exerciseRoutes)
 app.use("/food",foodRoutes)
+app.use("/todo",todoRoutes)
 
 app.listen(port)

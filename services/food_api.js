@@ -38,6 +38,9 @@ exports.getNutrientData = async (queryText, pageSize) => {
       filteredItem['Protein'] = item.Protein;
       filteredItem['Energy'] = item.Energy;
       filteredItem['Water']=item.Water;
+      // filteredItem['Water']=item.Water;
+      // filteredItem['Water']=item.Water;
+
       return filteredItem;
     });
 
