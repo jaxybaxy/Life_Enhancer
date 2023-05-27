@@ -87,7 +87,7 @@ exports.signInWithGoogle = async (req, res) => {
         status: true,
         token:token,
         isNew:false,
-        user: { name: userExists.name, email: userExists.email },
+        user: userExists,
       });
     }
 
@@ -104,7 +104,7 @@ exports.signInWithGoogle = async (req, res) => {
       status: true,
       token:token,
       isNew:true,
-      user: { name: newUser.name, email: newUser.email },
+      user: resultUser,
     });
   } catch (err) {
     console.error(err);
