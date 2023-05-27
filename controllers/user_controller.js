@@ -141,7 +141,7 @@ exports.signUp = async (req, res) => {
     res.status(200).json({
       status: true,
       token: token,
-      user: { name: resultUser.name, email: resultUser.email },
+      user: resultUser,
     });
   } catch (err) {
     return res.json({ message: err.toString() });
@@ -241,12 +241,13 @@ exports.updateUser = async (req,res) => {
           dietLevel = 3;
         }
         const filter = { email };
-        const update = { gender, weight, height, BMI,age, PhotoURL,dietLevel };
+        const update = { gender, weight, height, BMI,age, PhotoURL,dietLevel,bmr};
         const options = { new: true };
 
         const updatedUser = await UserModel.findOneAndUpdate(filter, update, options);
-        console.log('Updated document =>', updatedUser);
         updatedUser.password = ""
+        console.log('Updated document =>', updatedUser);
+        
         return res.status(200).send({status:true,user:updatedUser})
     } catch(err) {
         return res.send({status:false, error: 'failed to update user' })

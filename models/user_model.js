@@ -32,6 +32,8 @@ const userSchema = new mongoose.Schema({
         type:String
     },age:{
         type:Number
+    },bmr:{
+        type:Number
     }
 })
 

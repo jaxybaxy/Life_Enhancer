@@ -1,4 +1,7 @@
 const DietModel = require("../models/diet_model")
+
+
+
 exports.getAllDiets = async () => {
     try{
         const diets = await DietModel.find({});
