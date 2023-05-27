@@ -222,12 +222,28 @@ exports.getAllUsers = async(req,res) => {
     
 exports.updateUser = async (req,res) => {
         try{
-        const {email,gender,weight, height, BMI, PhotoURL} = req.body;
+        const {email,gender,weight, height, BMI, PhotoURL,age} = req.body;
+        // const dietLevel =  await calculateDietLevel(gender, weight, height, age);
+        let bmr = 0;
+        let dietLevel = 0;
 
-        const filter = { email };
-        const update = { gender, weight, height, BMI, PhotoURL };
-        const options = { new: true };
+        if (gender === 'male') {
+          bmr = 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age);
+        } else if (gender === 'female') {
+          bmr = 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age);
+        }
       
+        if (bmr < 1500) {
+          dietLevel = 1;
+        } else if (bmr >= 1500 && bmr <= 2500) {
+          dietLevel = 2;
+        } else {
+          dietLevel = 3;
+        }
+        const filter = { email };
+        const update = { gender, weight, height, BMI,age, PhotoURL,dietLevel };
+        const options = { new: true };
+
         const updatedUser = await UserModel.findOneAndUpdate(filter, update, options);
         console.log('Updated document =>', updatedUser);
         updatedUser.password = ""
@@ -264,6 +280,29 @@ exports.updateUser = async (req,res) => {
     }
 
   }
+// exports.calculateDietLevel = async (gender, weight, height, age) => {
+// try{
+//   let bmr = 0;
+
+//   if (gender === 'male') {
+//     bmr = 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age);
+//   } else if (gender === 'female') {
+//     bmr = 447.593 + (9.247 * weight) + (3.098 * height) - (4.330 * age);
+//   }
+
+//   if (bmr < 1500) {
+//     return 1;
+//   } else if (bmr >= 1500 && bmr <= 2500) {
+//     return 2;
+//   } else {
+//     return 3;
+//   }
+// }catch(err){
+//   return res.json({ status:false, message: "unexpected error" })
+// }
+// }
+
+
 
     // req.body.ifIns = 'True'
     // req.body.password = bcrypt.hash(req.body.password, 12)
