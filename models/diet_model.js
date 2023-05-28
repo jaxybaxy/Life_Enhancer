@@ -15,5 +15,5 @@ const dietSchema = new mongoose.Schema({
 });
 
 // Define Diet model
-const DietModel = db.model('Diet', dietSchema);
+const DietModel = db.model('diet_name', dietSchema);
 module.exports = DietModel;
