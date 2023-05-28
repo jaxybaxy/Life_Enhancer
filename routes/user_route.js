@@ -7,7 +7,7 @@ router.post("/gmailAuth", userController.signInWithGoogle)
 router.post("/login", userController.logIn)
 router.post("/update", userController.updateUser)
 router.get("/allUsers", userController.getAllUsers)
-router.get("/:userid", userController.getUserById)
+router.get("/:userid",verify.verifyToken ,userController.getUserById)
 router.delete("/delete",userController.deleteUserById)
 router.get("/:userid", userController.getUserById)
 
