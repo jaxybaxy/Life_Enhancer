@@ -8,5 +8,6 @@ router.get("/today",diet_controller.getDietForToday)
 router.get("/food_id",diet_controller.getDietById)
 router.get("/diet_name",diet_controller.getAllDiets)
 router.get("/select_diet",diet_controller.appropriateDiet)
+router.get("/weekdiet",diet_controller.getDietByWeek)
 
 module.exports = router;

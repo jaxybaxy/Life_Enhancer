@@ -5,11 +5,10 @@ const db = require("../util/db");
 
 const dietSchema = new mongoose.Schema({
   name: {
-    type: String,
-    required: true,
-  },
+    type: String
+    },
   description: {
-    type: String,
+    type: Object,
     required: true,
   }
 });

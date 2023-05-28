@@ -1,4 +1,6 @@
 const api_key = '261fdba0020c42e6bfc2b28449907233';
+// const fetch = require('node-fetch');
+const DietModel = require("../models/diet_model")
 
 exports.getDailyMealDataModel = async (targetCalories, diet) => {
   try {
@@ -32,6 +34,7 @@ exports.getDietByIdModel = async (id) => {
     const params = {
       api_key: api_key,
       id: id
+
     };
 
     const api_url = `https://api.spoonacular.com/recipes/${encodeURIComponent(params.id)}/nutritionWidget.json?apiKey=${encodeURIComponent(params.api_key)}`
@@ -94,4 +97,6 @@ exports.getDietByIdModel = async (id) => {
     return err;
   }
 };
+
+
 

@@ -200,7 +200,7 @@ exports.getAllUsers = async(req,res) => {
                 return res.send({ error: 'User not found' })
 
             }
-            return res.status(200).send(user)
+            return res.status(200).send({status:true,user:user})
 
         }
         catch(error){
