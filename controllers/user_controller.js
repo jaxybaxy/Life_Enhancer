@@ -189,7 +189,7 @@ exports.getAllUsers = async(req,res) => {
  exports.getUserById = async (req,res) => {
         try{
 
-            var userid =req.user._id
+            var userid =req.user.id
             if(!userid){
 
                 return res.send({ error: `user id is empty` })
