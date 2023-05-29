@@ -119,11 +119,15 @@ exports.appropriateDiet = async (req, res) => {
 
 exports.getDietByWeek = async (req, res) => {
     try {
+
         const email = req.user.email;
-        const user = UserModel.findOne({email})
+
+        const user = await UserModel.findOne({email})
+        // console.log(user.name)
+        // const bmr = user.bmr
         const apiKey = '261fdba0020c42e6bfc2b28449907233';
         async function generateWeeklyDietPlan(apiKey) {
-            const response = await fetch(`https://api.spoonacular.com/mealplanner/generate?apiKey=${apiKey}&timeFrame=week&targetCalories=2000&diet=${user.diet}`);
+            const response = await fetch(`https://api.spoonacular.com/mealplanner/generate?apiKey=${apiKey}&timeFrame=week&targetCalories=${user.bmr}&diet=${user.diet}`);
             const data = await response.json();
             return data;
         }
@@ -159,8 +163,8 @@ exports.getDietByWeekID = async (req, res) => {
         const email = req.user.email
         const user = await UserModel.findOne({ email });
         const diet = await DietModel.findById(user.dietPlan)
-        res.send(diet)
-    } catch (error) {
+        res.send({status:true,diet:diet})
+        } catch (error) {
         console.error('Error:', error);
         res.json({ error: 'An error occurred.' });
     }
