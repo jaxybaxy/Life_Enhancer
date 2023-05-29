@@ -120,10 +120,10 @@ exports.appropriateDiet = async (req, res) => {
 exports.getDietByWeek = async (req, res) => {
     try {
         const email = req.user.email;
-
+        const user = UserModel.findOne({email})
         const apiKey = '261fdba0020c42e6bfc2b28449907233';
         async function generateWeeklyDietPlan(apiKey) {
-            const response = await fetch(`https://api.spoonacular.com/mealplanner/generate?apiKey=${apiKey}&timeFrame=week&targetCalories=2000`);
+            const response = await fetch(`https://api.spoonacular.com/mealplanner/generate?apiKey=${apiKey}&timeFrame=week&targetCalories=2000&diet=${user.diet}`);
             const data = await response.json();
             return data;
         }
@@ -146,7 +146,7 @@ exports.getDietByWeek = async (req, res) => {
         throw new Error('User not found');
     }
     console.log(updatedUser)
-    res.json(savedPlan);
+    res.send({status:true,diet:savedPlan});
     } catch (error) {
         console.error('Error:', error);
         res.json({ error: 'An error occurred.' });
