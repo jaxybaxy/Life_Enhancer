@@ -1,19 +1,25 @@
 const mongoose = require("mongoose");
 const db = require("../util/db");
 const doctorSchema = new mongoose.Schema({
-    name: {
+    Doctor: {
         type:String,
         required:true
-    },address:{
+    },Description:{
         type:String
-    },fee:{
+    },Brief:{
         type:Number
-    },rate:{
+    },Area:{
         type:Number
-    },phone: {
+    },Address: {
         type: String,
-        required: true,
-        unique: true
+    },Rate: {
+        type: String,
+    },Price: {
+        type: String,
+    },Link: {
+        type: String,
+    },Phone_number: {
+        type: String,
     }
 })
 const DoctorModel = db.model("doctor",doctorSchema);
