@@ -1,4 +1,5 @@
 const DietModel = require("../models/diet_model")
+const UserModel = require("../models/user_model")
 const DietNamesModel = require("../models/dietNames_model")
 const dietAPI = require('../services/diet_api')
 const api_key = '261fdba0020c42e6bfc2b28449907233';
@@ -118,6 +119,8 @@ exports.appropriateDiet = async (req, res) => {
 
 exports.getDietByWeek = async (req, res) => {
     try {
+        const email = req.user.email;
+
         const apiKey = '261fdba0020c42e6bfc2b28449907233';
         async function generateWeeklyDietPlan(apiKey) {
             const response = await fetch(`https://api.spoonacular.com/mealplanner/generate?apiKey=${apiKey}&timeFrame=week&targetCalories=2000`);
@@ -132,7 +135,18 @@ exports.getDietByWeek = async (req, res) => {
         }
         const dietPlan = await generateWeeklyDietPlan(apiKey);
         const savedPlan = await saveDietPlanToDatabase(dietPlan);
-        res.json(savedPlan);
+       
+    const filter = { email };
+    const update = { dietPlan: savedPlan._id };
+    const options = { new: true };
+
+    const updatedUser = await UserModel.findOneAndUpdate(filter, update, options);
+
+    if (!updatedUser) {
+        throw new Error('User not found');
+    }
+    console.log(updatedUser)
+    res.json(savedPlan);
     } catch (error) {
         console.error('Error:', error);
         res.json({ error: 'An error occurred.' });
@@ -142,8 +156,9 @@ exports.getDietByWeek = async (req, res) => {
 
 exports.getDietByWeekID = async (req, res) => {
     try {
-        const id = req.body.id
-        const diet = await DietModel.findById(id)
+        const email = req.user.email
+        const user = await UserModel.findOne({ email });
+        const diet = await DietModel.findById(user.dietPlan)
         res.send(diet)
     } catch (error) {
         console.error('Error:', error);
