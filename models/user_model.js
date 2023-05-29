@@ -36,6 +36,9 @@ const userSchema = new mongoose.Schema({
         type:Number
     },diet:{
         type:String
+    },dietPlan: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'DietModel'
     }
 })
 
