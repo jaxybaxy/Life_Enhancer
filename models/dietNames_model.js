@@ -4,15 +4,14 @@ const mongoose = require('mongoose');
 const db = require("../util/db");
 
 const dietSchema = new mongoose.Schema({
-  name: {
-    type: String
+    name: {
+        type: String
     },
-  description: {
-    type: Object,
-    required: true,
-  }
+    description: {
+        type: String,
+    }
 });
 
 // Define Diet model
-const DietModel = db.model('diet', dietSchema);
+const DietModel = db.model('diet_name', dietSchema);
 module.exports = DietModel;

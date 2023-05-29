@@ -18,7 +18,8 @@ exports.getAllExercises = async (req,res) => {
 exports.getExerciseById = async(req,res) => {
     try{
         var id = req.body.id
-        const exercise = await ExerciseModel.findById(id);
+        const exercise = await ExerciseModel.findById(id);  
+        // console.log(exercise)
         res.status(200).send({status:true,exercise:exercise})}
 
     catch(err){
@@ -28,7 +29,9 @@ exports.getExerciseById = async(req,res) => {
   exports.getExerciseByLevel = async(req,res) => {
     try{
         var level = req.body.level
-        const exercises = await ExerciseModel.find({ Level:level });
+        const exercises = await ExerciseModel.find({Level:level});
+        console.log(exercises)
+
         res.status(200).send({status:true,exercise:exercises})}
 
     catch(err){

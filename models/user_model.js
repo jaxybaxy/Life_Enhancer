@@ -34,6 +34,8 @@ const userSchema = new mongoose.Schema({
         type:Number
     },bmr:{
         type:Number
+    },diet:{
+        type:String
     }
 })
 

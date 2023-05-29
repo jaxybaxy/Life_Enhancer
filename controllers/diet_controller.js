@@ -1,4 +1,5 @@
 const DietModel = require("../models/diet_model")
+const DietNamesModel = require("../models/dietNames_model")
 const dietAPI = require('../services/diet_api')
 const api_key = '261fdba0020c42e6bfc2b28449907233';
 
@@ -28,7 +29,7 @@ exports.getDietById = async (req, res) => {
 
 exports.getAllDiets = async (req, res) => {
     try {
-        const diets = await DietModel.find()
+        const diets = await DietNamesModel.find()
         res.status(200).send(diets)
     }
     catch (err) {
@@ -38,17 +39,75 @@ exports.getAllDiets = async (req, res) => {
 
 exports.appropriateDiet = async (req, res) => {
     try {
-        var eat_gluten = req.body.gluten
-        var eat_meat = req.body.meat
-        var eat_fish = req.body.fish
-        var eat_milk = req.body.milk
-        var eat_egg = req.body.egg
+        var diet;
+        var hasAllergies = req.body.hasAllergies
+        var wantsToLoseWeight = req.body.wantsToLoseWeight
+        var isLightlyActive = req.body.isLightlyActive
+        var isVeryActive = req.body.isVeryActive
+        var isVegetarian = req.body.isVegetarian
+        var isWillingToGiveUpGrains = req.body.isWillingToGiveUpGrains
+        var eatsMilk = req.body.eatsMilk
+        var eatsEggs = req.body.eatsEggs
 
-        if (eat_meat == true) {
-            return res.status(200).send({"name":""})
+        if (hasAllergies) {
+            console.log('Gluten Free');
+            diet = "Gluten Free"
+            // res.status(200).send({"diet":diet}) 
+        }
+
+        else if (wantsToLoseWeight) {
+            if (isLightlyActive) {
+                console.log('Ketogenic');
+                diet = "Ketogenic"
+                // res.status(200).send({"diet":diet}) 
+            } else if (isVeryActive) {
+                console.log('Low FODMAP');
+                diet = 'Low FODMAP'
+                // res.status(200).send({"diet":diet}) 
+            }
+            else{
+                console.log('Paleo');
+                diet = 'Paleo'
+            }
+        }
+
+        else if (isVegetarian) {
+            if (eatsEggs && eatsMilk) {
+                console.log('Vegetarian');
+                diet =  'Vegetarian'
+                // res.status(200).send({"diet":diet}) 
+            }
+            else if (!eatsEggs && !eatsMilk) {
+                console.log('Vegan');
+                diet = 'Vegan'
+                // res.status(200).send({"diet":diet}) 
+            }
+            else if (!eatsEggs) {
+                console.log('Lacto-Vegetarian');
+                diet = 'Lacto-Vegetarian'
+                // res.status(200).send({"diet":diet}) 
+            }
+            else if (!eatsMilk) {
+                console.log('Ovo-Vegetarian');
+                diet = 'Ovo-Vegetarian'
+                // res.status(200).send({"diet":diet}) 
+            }
 
         }
 
+        else if (!isVegetarian && !isWillingToGiveUpGrains && eatsEggs && eatsMilk ) {
+            console.log('Primal');
+            diet = 'Primal'
+            // res.status(200).send({"diet":diet}) 
+        }
+
+        else {
+            console.log('Whole30');
+            diet = 'Whole30'
+            // res.status(200).send({"diet":diet}) 
+        }
+        const diets = await DietNamesModel.find({"name":diet})
+        // console.log(diets)
         res.status(200).send(diets)
     }
     catch (err) {
@@ -57,25 +116,37 @@ exports.appropriateDiet = async (req, res) => {
 }
 
 
-exports.getDietByWeek = async (req, res) => {  
+exports.getDietByWeek = async (req, res) => {
     try {
         const apiKey = '261fdba0020c42e6bfc2b28449907233';
         async function generateWeeklyDietPlan(apiKey) {
             const response = await fetch(`https://api.spoonacular.com/mealplanner/generate?apiKey=${apiKey}&timeFrame=week&targetCalories=2000`);
             const data = await response.json();
             return data;
-          }
-          
-          // Function to save the diet plan to the database
-          async function saveDietPlanToDatabase(dietPlan) {
+        }
+
+        // Function to save the diet plan to the database
+        async function saveDietPlanToDatabase(dietPlan) {
             const savedPlan = await DietModel.create({ description: dietPlan });
             return savedPlan;
-          } 
-      const dietPlan = await generateWeeklyDietPlan(apiKey);
-      const savedPlan = await saveDietPlanToDatabase(dietPlan);
-      res.json(savedPlan);
+        }
+        const dietPlan = await generateWeeklyDietPlan(apiKey);
+        const savedPlan = await saveDietPlanToDatabase(dietPlan);
+        res.json(savedPlan);
     } catch (error) {
-      console.error('Error:', error);
-      res.json({ error: 'An error occurred.' });
+        console.error('Error:', error);
+        res.json({ error: 'An error occurred.' });
     }
-  };
+};
+
+
+exports.getDietByWeekID = async (req, res) => {
+    try {
+        const id = req.body.id
+        const diet = await DietModel.findById(id)
+        res.send(diet)
+    } catch (error) {
+        console.error('Error:', error);
+        res.json({ error: 'An error occurred.' });
+    }
+};
