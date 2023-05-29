@@ -109,7 +109,7 @@ exports.appropriateDiet = async (req, res) => {
         }
         const diets = await DietNamesModel.find({"name":diet})
         // console.log(diets)
-        res.status(200).send(diets)
+        res.status(200).send({status:true,diets})
     }
     catch (err) {
         return res.send({ status: false, error: 'failed to list exercise' })
