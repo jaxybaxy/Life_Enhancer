@@ -24,8 +24,6 @@ const userSchema = new mongoose.Schema({
         type:String
     },PhotoURL:{
         type: String
-    },dietLevel:{
-        type:Number
     },exerciceLevel:{
         type:Number
     },gender:{

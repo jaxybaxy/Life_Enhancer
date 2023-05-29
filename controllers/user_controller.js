@@ -225,7 +225,6 @@ exports.updateUser = async (req,res) => {
         const {email,gender,weight, height, BMI, PhotoURL,age,diet,userAbility} = req.body;
         // const dietLevel =  await calculateDietLevel(gender, weight, height, age);
         let bmr = 0;
-        let dietLevel = 0;
         let exerciceLevel=0;
         if (gender === 'male') {
           bmr = 88.362 + (13.397 * weight) + (4.799 * height) - (5.677 * age);
@@ -262,19 +261,12 @@ exports.updateUser = async (req,res) => {
 
 
 
-        if (bmr < 1500) {
-          dietLevel = 1;
-        } else if (bmr >= 1500 && bmr <= 2500) {
-          dietLevel = 2;
-        } else {
-          dietLevel = 3;
-        }
 
  
         
 
         const filter = { email };
-        const update = { gender, weight, height, BMI,age, PhotoURL,dietLevel,bmr,diet,exerciceLevel};
+        const update = { gender, weight, height, BMI,age, PhotoURL,bmr,diet,exerciceLevel};
         const options = { new: true };
 
         const updatedUser = await UserModel.findOneAndUpdate(filter, update, options);
