@@ -24,7 +24,15 @@ exports.getQuestions = async (req,res) => {
   exports.postResult=async(req,res)=>{
     try{
         var result = req.body.result
-        res.status(200).send({status:true,result:result})
+        var isDisorder
+        if(result>=0.5 && result<=1){
+            isDisorder = 1
+        }else if (result>0 && result<0.5) {
+            isDisorder = 0
+        }else {
+            return res.send({status:false,error: 'invalid input'})
+        }
+        res.status(200).send({status:true,isDisorder:isDisorder})
 
 
     }
