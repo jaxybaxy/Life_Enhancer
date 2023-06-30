@@ -147,7 +147,7 @@ exports.getDietByWeek = async (req, res) => {
     const updatedUser = await UserModel.findOneAndUpdate(filter, update, options);
 
     if (!updatedUser) {
-        throw new Error('User not found');
+        return res.send({ status: false, error: 'user not found' })
     }
     console.log(updatedUser)
     res.send({status:true,diet:savedPlan});
