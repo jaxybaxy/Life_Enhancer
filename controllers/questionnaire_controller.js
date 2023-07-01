@@ -1,5 +1,8 @@
 const QuestionnaireModel = require("../models/questionnaire_model")
 const UserModel = require("../models/user_model")
+const guideModel = require("../models/guide_model")
+
+
 
 exports.getQuestions = async (req, res) => {
     try {
@@ -33,7 +36,7 @@ exports.postResult = async (req, res) => {
         } else if (result > 0 && result < 0.5) {
             isDisorder = 0
         } else {
-            return res.send({ status: false, error: 'invalid input' })
+            return res.send({ status: false, error: 'invalid result input' })
         }
 
 
@@ -49,7 +52,26 @@ exports.postResult = async (req, res) => {
             return res.send({ status: false, error: 'user not found' })
         }
         console.log(updatedUser)
-        res.status(200).send({ status: true, isDisorder: isDisorder })
+
+
+        
+        const guide = await guideModel.find()
+
+        
+        if(isDisorder==1){
+            return res.status(200).send({status:true,isDisorder:1,guide:guide})
+        }
+        else if (isDisorder==0){
+            return res.status(200).send({status:true,isDisorder:0})
+
+        }
+        else{
+        return res.status(500).send({status:false, error: 'invalid input' })
+        }
+
+
+        console.log(updatedUser)
+        // res.status(200).send({ status: true, isDisorder: isDisorder })
 
         
 
