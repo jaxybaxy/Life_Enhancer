@@ -8,6 +8,8 @@ const foodRoutes = require("./routes/food_route")
 const todoRoutes = require("./routes/todo_route")
 const dietRoutes = require("./routes/diet_route")
 const questionnaireRoutes = require("./routes/questionnaire_route")
+const guideRoutes = require("./routes/guide_route")
+
 
 
 const bodyParser = require('body-parser');
@@ -27,5 +29,6 @@ app.use("/food",foodRoutes)
 app.use("/todo",todoRoutes)
 app.use("/diet",dietRoutes)
 app.use("/questionnaire",questionnaireRoutes)
+app.use("/guide",guideRoutes)
 
 app.listen(port)
