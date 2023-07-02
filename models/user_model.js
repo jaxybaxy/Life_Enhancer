@@ -37,7 +37,7 @@ const userSchema = new mongoose.Schema({
     },dietPlan: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'DietModel'
-    },hasDisorder:{
+    },isDisorder:{
         type:String
     }
 })
