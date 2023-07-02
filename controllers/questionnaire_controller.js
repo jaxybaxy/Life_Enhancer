@@ -43,7 +43,7 @@ exports.postResult = async (req, res) => {
 
 
         const filter = { email };
-        const update = { isDisorder: isDisorder };
+        const update = { hasDisorder: isDisorder };
         const options = { new: true };
     
         const updatedUser = await UserModel.findOneAndUpdate(filter, update, options);
