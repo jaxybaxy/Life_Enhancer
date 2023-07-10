@@ -1,6 +1,7 @@
-const api_key = '261fdba0020c42e6bfc2b28449907233';
 // const fetch = require('node-fetch');
 const DietModel = require("../models/diet_model")
+const dotenv = require("dotenv").config()
+const api_url= process.env.spoon_api_key
 
 exports.getDailyMealDataModel = async (targetCalories, diet) => {
   try {

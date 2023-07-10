@@ -1,6 +1,9 @@
+const dotenv = require("dotenv").config()
+const api_key= process.env.food_api_key
+
 exports.getNutrientData = async (queryText, pageSize) => {
   try {
-    const api_key = 'qnuSQJwk5b83M28yMwzRs3o5gryxKBsByYfAl0LJ';
+    const api_key = api_key;
     const params = {
       api_key: api_key,
       query: queryText,
