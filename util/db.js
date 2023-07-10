@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
-db = mongoose.createConnection("mongodb+srv://life:CIQdUBQPCBJvODyY@life.of6y31r.mongodb.net/?retryWrites=true&w=majority"
+const dotenv =require("dotenv").config()
+
+db = mongoose.createConnection(process.env.mongo_url
 ).on("open", ()=> {
     console.log("DB connected")
 }).on("error", ()=> {
